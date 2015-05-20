@@ -1,0 +1,1 @@
+This is a basic To Do List project that I'm using to practice my JavaScript skills. It's exceptionally basic and based off of a lesson in the Front End Web Developer course on Treehouse. Have to start somewhere!
