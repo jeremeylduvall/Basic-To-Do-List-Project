@@ -2,8 +2,10 @@
 
 var newTaskField = document.getElementById("new-task")
 var addButton = document.getElementById("add");
+var listItem = document.getElementsByTagName("li");
 var newTask;
-var incompleteTasks = document.getElementById("incomplete-tasks");
+var incompleteTaskHolder = document.getElementById("incomplete-tasks"); //incomplete-tasks
+var completedTasksHolder = document.getElementById("completed-tasks");
 
 function buildTask (a) {
 	
@@ -54,18 +56,88 @@ function buildTask (a) {
 addButton.onclick = function () {
 	var newTask = newTaskField.value;
 
-	// Add item to ToDo
-	incompleteTasks.appendChild(buildTask(newTask));
+	if (newTaskField.value === "") {
+		alert("You have to enter a task!");
+	} else {
+		// Add item to ToDo
+		incompleteTaskHolder.appendChild(buildTask(newTask));
 
-	// Clear Add Item field
-	newTaskField.value = "";
-
-
+		// Clear Add Item field
+		newTaskField.value = "";
+	}
 };
 
+// Fix Edit button
+
+function editTask() {
+	listItem = this.parentNode;
+
+	if (listItem.className === "editMode") {
+		listItem.classList.remove("editMode");
+	} else {
+		listItem.classList.add("editMode");
+		this.innerText = "Save";
+	}
+}
+
+for (var i = 0; i < listItem.length; i++ ) {
+
+	var editButton = listItem[i].childNodes[3];
+
+	editButton.addEventListener("click", editTask);
+
+}
 
 
 
-// 	Value is grabbed from the input
-// 	Item is added to the TODO list
-// 	Edit and Delete buttons are added
+// Fix Delete button
+
+// Fix checkbox
+	// When checkbox is checked
+		// Item is crossed off
+		// Item is added to Completed list
+	// When unchecked
+		// Item is not crossed off
+		// Item is added to TODO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
