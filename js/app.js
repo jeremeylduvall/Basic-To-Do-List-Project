@@ -65,6 +65,8 @@ addButton.onclick = function () {
 		// Clear Add Item field
 		newTaskField.value = "";
 	}
+
+	bindEvents();
 };
 
 // Fix Edit button
@@ -80,17 +82,11 @@ function editTask() {
 	}
 }
 
-for (var i = 0; i < listItem.length; i++ ) {
-
-	var editButton = listItem[i].childNodes[3];
-
-	editButton.addEventListener("click", editTask);
-
-}
-
-
-
 // Fix Delete button
+
+function deleteTask() {
+	incompleteTaskHolder.removeChild(this.parentNode);
+}
 
 // Fix checkbox
 	// When checkbox is checked
@@ -101,13 +97,20 @@ for (var i = 0; i < listItem.length; i++ ) {
 		// Item is added to TODO
 
 
+// Loop over list items and bind events to click
 
+function bindEvents () {
 
+	for (var i = 0; i < listItem.length; i++ ) {
 
+		var editButton = listItem[i].childNodes[3];
+		var deleteButton = listItem[i].childNodes[4];
 
+		editButton.addEventListener("click", editTask);
+		deleteButton.addEventListener("click", deleteTask);
 
-
-
+	}
+}
 
 
 
