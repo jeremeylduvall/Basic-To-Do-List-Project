@@ -81,14 +81,21 @@ function editTask() {
 
 	if (editedTask.className === "editMode") {
 
-		// Remove the class editMode
-		editedTask.classList.remove("editMode");
+		if (textField[0].value === "") {
+			alert ("You have to enter a task");
+		} else {
+			// Set label to newly entered value
+			label[0].innerText = textField[0].value;
 
-		// Set button back to "Edit"
-		this.innerText = "Edit";
+			// Remove the class editMode
+			editedTask.classList.remove("editMode");
 
-		// Set label to newly entered value
-		label[0].innerText = textField[0].value;
+			// Set button back to "Edit"
+			this.innerText = "Edit";
+
+			// Set label to newly entered value
+			label[0].innerText = textField[0].value;
+		};
 
 	} else {
 
