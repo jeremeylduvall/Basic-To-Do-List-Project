@@ -7,6 +7,8 @@ var newTask;
 var incompleteTaskHolder = document.getElementById("incomplete-tasks"); //incomplete-tasks
 var completedTasksHolder = document.getElementById("completed-tasks");
 
+
+
 function buildTask (a) {
 	
 	// Create list item
@@ -32,13 +34,13 @@ function buildTask (a) {
 	// Create Edit button
 
 	var editButton = document.createElement("button");
-	editButton.classList.add("Edit");
+	editButton.classList.add("edit");
 	editButton.innerText = "Edit";
 
 	// Create Delete button
 
 	var deleteButton = document.createElement("button");
-	deleteButton.classList.add("Delete");
+	deleteButton.classList.add("delete");
 	deleteButton.innerText = "Delete";
 
 	// Append everything
@@ -53,6 +55,20 @@ function buildTask (a) {
 	return taskItem;
 };
 
+// addButton.onclick = function () {
+// 	var newTask = newTaskField.value;
+
+// 	if (newTaskField.value === "") {
+// 		alert("You have to enter a task!");
+// 	} else {
+// 		// Add item to ToDo
+// 		incompleteTaskHolder.appendChild(buildTask(newTask));
+
+// 		// Clear Add Item field
+// 		newTaskField.value = "";
+// 	};
+// };
+
 addButton.onclick = function () {
 	var newTask = newTaskField.value;
 
@@ -64,38 +80,56 @@ addButton.onclick = function () {
 
 		// Clear Add Item field
 		newTaskField.value = "";
-	}
-
+	};
+	
 	bindEvents();
 };
+
 
 // Fix Edit button
 
 function editTask() {
-	listItem = this.parentNode;
+	editedTask = this.parentNode;
 
-	if (listItem.className === "editMode") {
-		listItem.classList.remove("editMode");
+
+	if (editedTask.className === "editMode") {
+		editedTask.classList.remove("editMode");
 	} else {
-		listItem.classList.add("editMode");
+		editedTask.classList.add("editMode");
 		this.innerText = "Save";
 	}
-}
+};
 
 // Fix Delete button
 
 function deleteTask() {
-	incompleteTaskHolder.removeChild(this.parentNode);
-}
+	deletedTask = this.parentNode;
+
+	if (deletedTask.parentNode === incompleteTaskHolder) {
+		incompleteTaskHolder.removeChild(deletedTask);
+	} else if (deletedTask.parentNode === completedTasksHolder) {
+		completedTasksHolder.removeChild(deletedTask);
+	}
+};
 
 // Fix checkbox
-	// When checkbox is checked
-		// Item is crossed off
+
+function checkTask() {
+	
+	checkedTask = this.parentNode;
+
+	if (this.checked) {
 		// Item is added to Completed list
-	// When unchecked
+		// Item is crossed off
+		incompleteTaskHolder.removeChild(checkedTask);
+		completedTasksHolder.appendChild(checkedTask);
+	} else {
 		// Item is not crossed off
 		// Item is added to TODO
-
+		completedTasksHolder.removeChild(checkedTask);
+		incompleteTaskHolder.appendChild(checkedTask);
+	}
+};
 
 // Loop over list items and bind events to click
 
@@ -105,12 +139,17 @@ function bindEvents () {
 
 		var editButton = listItem[i].childNodes[3];
 		var deleteButton = listItem[i].childNodes[4];
+		var checkbox = listItem[i].firstChild;
 
 		editButton.addEventListener("click", editTask);
 		deleteButton.addEventListener("click", deleteTask);
-
+		checkbox.addEventListener("click", checkTask);
 	}
-}
+};
+
+// Call binding event
+
+bindEvents();
 
 
 
