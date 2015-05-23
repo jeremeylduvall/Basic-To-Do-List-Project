@@ -7,8 +7,6 @@ var newTask;
 var incompleteTaskHolder = document.getElementById("incomplete-tasks"); //incomplete-tasks
 var completedTasksHolder = document.getElementById("completed-tasks");
 
-
-
 function buildTask (a) {
 	
 	// Create list item
@@ -55,21 +53,8 @@ function buildTask (a) {
 	return taskItem;
 };
 
-// addButton.onclick = function () {
-// 	var newTask = newTaskField.value;
-
-// 	if (newTaskField.value === "") {
-// 		alert("You have to enter a task!");
-// 	} else {
-// 		// Add item to ToDo
-// 		incompleteTaskHolder.appendChild(buildTask(newTask));
-
-// 		// Clear Add Item field
-// 		newTaskField.value = "";
-// 	};
-// };
-
 addButton.onclick = function () {
+	
 	var newTask = newTaskField.value;
 
 	if (newTaskField.value === "") {
@@ -89,20 +74,40 @@ addButton.onclick = function () {
 // Fix Edit button
 
 function editTask() {
+	
 	editedTask = this.parentNode;
-
+	label = editedTask.getElementsByTagName('label');
+	textField = editedTask.querySelectorAll('input[type=text]');
 
 	if (editedTask.className === "editMode") {
+
+		// Remove the class editMode
 		editedTask.classList.remove("editMode");
+
+		// Set button back to "Edit"
+		this.innerText = "Edit";
+
+		// Set label to newly entered value
+		label[0].innerText = textField[0].value;
+
 	} else {
+
+		// Add class editMode
 		editedTask.classList.add("editMode");
+
+		// Set button to "Save"
 		this.innerText = "Save";
+
+		// Set text field to previous label value
+		textField[0].value = label[0].innerText;
+
 	}
 };
 
 // Fix Delete button
 
 function deleteTask() {
+	
 	deletedTask = this.parentNode;
 
 	if (deletedTask.parentNode === incompleteTaskHolder) {
@@ -150,36 +155,3 @@ function bindEvents () {
 // Call binding event
 
 bindEvents();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
