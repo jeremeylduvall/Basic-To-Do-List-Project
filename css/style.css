@@ -118,3 +118,10 @@ ul li.editMode input[type=text] {
 ul li.editMode label {
   display:none;
 }
+
+#emptyToDo {
+  font-size: 18px;
+  line-height: 40px;
+  width: 237px;
+  padding: 20px;
+}

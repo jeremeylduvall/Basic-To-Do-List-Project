@@ -1,55 +1,52 @@
-// When Add button is pressed
-
 var newTaskField = document.getElementById("new-task")
 var addButton = document.getElementById("add");
 var listItem = document.getElementsByTagName("li");
 var newTask;
-var incompleteTaskHolder = document.getElementById("incomplete-tasks"); //incomplete-tasks
+var incompleteTaskHolder = document.getElementById("incomplete-tasks");
 var completedTasksHolder = document.getElementById("completed-tasks");
+var noTasks = "<div id='emptyToDo'>Nothing to do today!</div>"
+
+function hideEmptySections () {
+
+	if (incompleteTaskHolder.getElementsByTagName("li")[0] === undefined ) {
+		incompleteTaskHolder.innerHTML = noTasks;
+	}
+};
 
 function buildTask (a) {
 	
 	// Create list item
-
 	var taskItem = document.createElement("li");
 
 	// Create checkbox
-
 	var checkbox = document.createElement("input");
 	checkbox.type = "checkbox";
 
 	// Create label
-
 	var label = document.createElement("label");
 	label.innerText = a;
 
 	// Create checkbox
-
 	var textField = document.createElement("input");
 	textField.type = "text";
-
 	
 	// Create Edit button
-
 	var editButton = document.createElement("button");
 	editButton.classList.add("edit");
 	editButton.innerText = "Edit";
 
 	// Create Delete button
-
 	var deleteButton = document.createElement("button");
 	deleteButton.classList.add("delete");
 	deleteButton.innerText = "Delete";
 
 	// Append everything
-
 	taskItem.appendChild(checkbox);
 	taskItem.appendChild(label);
 	taskItem.appendChild(textField);
 	taskItem.appendChild(editButton);
 	taskItem.appendChild(deleteButton);
 	
-
 	return taskItem;
 };
 
@@ -60,13 +57,19 @@ addButton.onclick = function () {
 	if (newTaskField.value === "") {
 		alert("You have to enter a task!");
 	} else {
-		// Add item to ToDo
-		incompleteTaskHolder.appendChild(buildTask(newTask));
-
+		
+		if (incompleteTaskHolder.innerHTML === noTasks ) {
+			// If it's the first item, replace innerHTML
+			incompleteTaskHolder.innerHTML = "";
+			incompleteTaskHolder.appendChild(buildTask(newTask));
+		} else {
+			// Add item to ToDo
+			incompleteTaskHolder.appendChild(buildTask(newTask));
+		}
 		// Clear Add Item field
 		newTaskField.value = "";
 	};
-	
+
 	bindEvents();
 };
 
@@ -80,8 +83,8 @@ function editTask() {
 	textField = editedTask.querySelectorAll('input[type=text]');
 
 	if (editedTask.className === "editMode") {
-
 		if (textField[0].value === "") {
+			// Don't allow blank tasks
 			alert ("You have to enter a task");
 		} else {
 			// Set label to newly entered value
@@ -92,13 +95,8 @@ function editTask() {
 
 			// Set button back to "Edit"
 			this.innerText = "Edit";
-
-			// Set label to newly entered value
-			label[0].innerText = textField[0].value;
 		};
-
 	} else {
-
 		// Add class editMode
 		editedTask.classList.add("editMode");
 
@@ -122,6 +120,9 @@ function deleteTask() {
 	} else if (deletedTask.parentNode === completedTasksHolder) {
 		completedTasksHolder.removeChild(deletedTask);
 	}
+
+	// Check for empties
+	hideEmptySections();
 };
 
 // Fix checkbox
