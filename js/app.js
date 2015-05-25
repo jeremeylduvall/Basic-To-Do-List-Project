@@ -4,12 +4,19 @@ var listItem = document.getElementsByTagName("li");
 var newTask;
 var incompleteTaskHolder = document.getElementById("incomplete-tasks");
 var completedTasksHolder = document.getElementById("completed-tasks");
-var noTasks = "<div id='emptyToDo'>Nothing to do today!</div>"
+var noTasks = '<div id="emptyToDo">Nothing to do today!</div>';
+var noCompleted = '<div id="emptyToDo">You haven\'t done anything!</div>';
 
-function hideEmptySections () {
+function hideEmptyToDo () {
 
 	if (incompleteTaskHolder.getElementsByTagName("li")[0] === undefined ) {
 		incompleteTaskHolder.innerHTML = noTasks;
+	}
+};
+
+function hideEmptyCompleted () {
+	if (completedTasksHolder.getElementsByTagName("li")[0] === undefined ) {
+		completedTasksHolder.innerHTML = noCompleted;
 	}
 };
 
@@ -122,7 +129,10 @@ function deleteTask() {
 	}
 
 	// Check for empties
-	hideEmptySections();
+	hideEmptyToDo();
+
+	// See if Completed container is empty
+	hideEmptyCompleted();
 };
 
 // Fix checkbox
@@ -132,16 +142,37 @@ function checkTask() {
 	checkedTask = this.parentNode;
 
 	if (this.checked) {
-		// Item is added to Completed list
-		// Item is crossed off
-		incompleteTaskHolder.removeChild(checkedTask);
-		completedTasksHolder.appendChild(checkedTask);
+	
+		if (completedTasksHolder.innerHTML === noCompleted) {
+
+			// Set innerHTML to blank and append checked task
+			completedTasksHolder.innerHTML = "";
+			completedTasksHolder.appendChild(checkedTask);
+		} else {
+
+			// Item is added to Completed list
+			// Item is crossed off
+			incompleteTaskHolder.removeChild(checkedTask);
+			completedTasksHolder.appendChild(checkedTask);
+		};
+
+		hideEmptyToDo();
 	} else {
+
 		// Item is not crossed off
 		// Item is added to TODO
 		completedTasksHolder.removeChild(checkedTask);
-		incompleteTaskHolder.appendChild(checkedTask);
+		if (incompleteTaskHolder.innerHTML === noTasks){
+			incompleteTaskHolder.innerHTML = "";
+			incompleteTaskHolder.appendChild(checkedTask);
+		} else {
+			incompleteTaskHolder.appendChild(checkedTask);
+		};
+
+		hideEmptyCompleted();
 	}
+
+
 };
 
 // Loop over list items and bind events to click
@@ -163,3 +194,5 @@ function bindEvents () {
 // Call binding event
 
 bindEvents();
+
+
