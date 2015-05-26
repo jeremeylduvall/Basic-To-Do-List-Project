@@ -13,7 +13,7 @@ function hideEmptyToDo () {
 	if (incompleteTaskHolder.getElementsByTagName("li")[0] === undefined && completedTasksHolder.getElementsByTagName("li")[0] !== undefined) {
 		incompleteTaskHolder.innerHTML = noMoreTasks;
 	} else if (incompleteTaskHolder.getElementsByTagName("li")[0] === undefined ) {
-		incompleteTaskHolder.innerhTML = noTasks;
+		incompleteTaskHolder.innerHTML = noTasks;
 	}
 };
 
@@ -68,7 +68,7 @@ addButton.onclick = function () {
 		alert("You have to enter a task!");
 	} else {
 		
-		if (incompleteTaskHolder.innerHTML === noTasks ) {
+		if (incompleteTaskHolder.innerHTML === noTasks || incompleteTaskHolder.innerHTML === noMoreTasks ) {
 			// If it's the first item, replace innerHTML
 			incompleteTaskHolder.innerHTML = "";
 			incompleteTaskHolder.appendChild(buildTask(newTask));
@@ -127,15 +127,11 @@ function deleteTask() {
 
 	if (deletedTask.parentNode === incompleteTaskHolder) {
 		incompleteTaskHolder.removeChild(deletedTask);
+		hideEmptyToDo();
 	} else if (deletedTask.parentNode === completedTasksHolder) {
 		completedTasksHolder.removeChild(deletedTask);
+		hideEmptyCompleted();
 	}
-
-	// Check for empties
-	hideEmptyToDo();
-
-	// See if Completed container is empty
-	hideEmptyCompleted();
 };
 
 // Fix checkbox
