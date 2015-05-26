@@ -5,12 +5,15 @@ var newTask;
 var incompleteTaskHolder = document.getElementById("incomplete-tasks");
 var completedTasksHolder = document.getElementById("completed-tasks");
 var noTasks = '<div id="emptyToDo">Nothing to do today!</div>';
+var noMoreTasks = '<div id="emptyToDo">Nothing else to do today!</div>';
 var noCompleted = '<div id="emptyToDo">You haven\'t done anything!</div>';
 
 function hideEmptyToDo () {
 
-	if (incompleteTaskHolder.getElementsByTagName("li")[0] === undefined ) {
-		incompleteTaskHolder.innerHTML = noTasks;
+	if (incompleteTaskHolder.getElementsByTagName("li")[0] === undefined && completedTasksHolder.getElementsByTagName("li")[0] !== undefined) {
+		incompleteTaskHolder.innerHTML = noMoreTasks;
+	} else if (incompleteTaskHolder.getElementsByTagName("li")[0] === undefined ) {
+		incompleteTaskHolder.innerhTML = noTasks;
 	}
 };
 
@@ -162,7 +165,7 @@ function checkTask() {
 		// Item is not crossed off
 		// Item is added to TODO
 		completedTasksHolder.removeChild(checkedTask);
-		if (incompleteTaskHolder.innerHTML === noTasks){
+		if (incompleteTaskHolder.innerHTML === noTasks || incompleteTaskHolder.innerHTML === noMoreTasks){
 			incompleteTaskHolder.innerHTML = "";
 			incompleteTaskHolder.appendChild(checkedTask);
 		} else {
