@@ -13,8 +13,7 @@ function dragging (HTML) {
 // Create drop event. Log out data to check
 
 function dropping () {
-	console.log("Dropped");
-  	var data = event.dataTransfer.getData("HTML");
- 	console.log(data);
- 	event.preventDefault();
+  	var listItem = event.dataTransfer.getData("HTML");
+  	event.target.parentNode.insertAdjacentHTML('beforeBegin', listItem);
+  	event.preventDefault();
 };
