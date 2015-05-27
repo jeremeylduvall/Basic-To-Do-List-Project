@@ -12,9 +12,9 @@
       </p>
       
       <h3>Todo</h3>
-      <ul id="incomplete-tasks">
-        <li><input type="checkbox"><label>Pay Bills</label><input type="text"><button class="edit">Edit</button><button class="delete">Delete</button></li>
-        <li><input type="checkbox"><label>Go Shopping</label><input type="text" value="Go Shopping"><button class="edit">Edit</button><button class="delete">Delete</button></li>
+      <ul id="incomplete-tasks" ondragover="return false">
+        <li draggable="true" ondragstart="dragging(this.innerHTML);" ondrop="dropping();"><input type="checkbox"><label>Pay Bills</label><input type="text"><button class="edit">Edit</button><button class="delete">Delete</button></li>
+        <li draggable="true" ondragstart="dragging(this.innerHTML);" ondrop="dropping();"><input type="checkbox"><label>Go Shopping</label><input type="text" value="Go Shopping"><button class="edit">Edit</button><button class="delete">Delete</button></li>
         
       </ul>
       
@@ -25,7 +25,7 @@
     </div>
 
     <script type="text/javascript" src="js/app.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="js/drag_and_drop.js"></script>
     
 
   </body>

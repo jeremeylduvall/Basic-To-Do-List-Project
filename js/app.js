@@ -27,6 +27,9 @@ function buildTask (a) {
 	
 	// Create list item
 	var taskItem = document.createElement("li");
+	taskItem.setAttribute('draggable', 'true');
+	taskItem.setAttribute('ondragstart', 'dragging(this.innerHTML);')
+	taskItem.setAttribute('ondrop', 'dropping();');
 
 	// Create checkbox
 	var checkbox = document.createElement("input");
