@@ -125,3 +125,26 @@ ul li.editMode label {
   width: 237px;
   padding: 20px;
 }
+
+.dragged {
+  position: absolute;
+  padding: 0;
+  opacity: 0.7;
+  z-index: 2000;
+}
+
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.sort li label:hover:after {
+  content: '     \f419';
+  font: normal 16px/1 'Genericons';
+}
+
+
+
+
+
+
+
