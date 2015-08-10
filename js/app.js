@@ -23,6 +23,11 @@ function hideEmptyCompleted () {
 	}
 };
 
+
+$(function () {
+  $(".sort").sortable();
+});
+
 function buildTask (a) {
 	
 	// Create list item
@@ -193,5 +198,4 @@ function bindEvents () {
 // Call binding event
 
 bindEvents();
-
 
