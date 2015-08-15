@@ -69,10 +69,10 @@ addButton.onclick = function () {
 	
 	var newTask = newTaskField.value;
 
-	if (newTaskField.value === "") {
+	if (newTaskField.value === "" || $.trim(newTask) === "") {
 		alert("You have to enter a task!");
 	} else {
-		
+
 		if (incompleteTaskHolder.innerHTML === noTasks || incompleteTaskHolder.innerHTML === noMoreTasks ) {
 			// If it's the first item, replace innerHTML
 			incompleteTaskHolder.innerHTML = "";
@@ -98,9 +98,10 @@ function editTask() {
 	textField = editedTask.querySelectorAll('input[type=text]');
 
 	if (editedTask.className === "editMode") {
-		if (textField[0].value === "") {
+		if (textField[0].value === "" || $.trim(textField[0].value) === "") {
 			// Don't allow blank tasks
 			alert ("You have to enter a task");
+
 		} else {
 			// Set label to newly entered value
 			label[0].innerText = textField[0].value;
@@ -110,6 +111,7 @@ function editTask() {
 
 			// Set button back to "Edit"
 			this.innerText = "Edit";
+
 		};
 	} else {
 		// Add class editMode
